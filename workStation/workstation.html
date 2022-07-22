@@ -12,9 +12,9 @@
         <form>
             <fieldset>
                 <h2>Выберите тип рабочей станции</h2>
-                <p><input type="radio" name="station" />Большая</p>
-                <p><input type="radio" name="station" />Маленькая</p>
-                <p><input type="radio" value="terminal" name="station" />Терминал</p>
+                <p><input type="radio" name="station" id="bigStation" onclick="typeS=1" />Большая</p>
+                <p><input type="radio" name="station" id="lowStation" onclick="typeS=2" />Маленькая</p>
+                <p><input type="radio" name="station" id="terminal" onclick="typeS=3" />Терминал</p>
         </form>
         </fieldset>
     </div>
@@ -23,31 +23,29 @@
         <fieldset id="color" disabled>
             <p>
                 <label for="color">Выберите цвет</label>
-                <input type="color" list="colors" id="color">
+                <input type="color" list="colors">
                 <datalist id="colors">
-                    <option value="#000000">Черный</option>
-                    <option value="#008000">Зеленый</option>
+                    <option value="#000000" onclick="typeC=1">Черный</option>
+                    <option value="#008000" onclick="typeC=2">Зеленый</option>
                 </datalist>
             </p>
         </fieldset>
-
     </form>
     <!--Зашитное исполнение-->
-    <div id="safe">
+    <div>
         <form>
-            <fieldset disabled>
+            <fieldset id="safe" disabled>
                 <h2>Нужно защищенное исполнение?</h2>
                 <p>
-                    <input type="radio" value="safe" />Да
+                    <input type="radio" onclick="safe" />Да
                 </p>
                 <p>
-                    <input type="radio" value="noSafe" />Нет
+                    <input type="radio" onclick="noSafe" />Нет
                 </p>
             </fieldset>
         </form>
     </div>
     <!--Процессор-->
-
     <form>
         <fieldset id="processor" disabled>
             <p>
@@ -62,7 +60,6 @@
             </p>
         </fieldset>
     </form>
-
     <!--Материнская плата-->
     <div id="motherboard">
         <form>
@@ -96,6 +93,7 @@
                     </select>
                     <label for="numberOperative">Количество плат: </label>
                     <select id="numberOperative">
+                        <option value="no">---</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -187,21 +185,92 @@
             </fieldset>
         </form>
     </div>
+    <!--Прочая информация-->
+    <div>
+        <label for="comment">Прочая информация:</label><br>
+        <textarea id="comment" cols="30" rows="7"></textarea>
+    </div>
+    <!--Кнопка для окончательного расчета-->
+    <form>
+        <button type="submit">Рассчитать</button>
+    </form>
+
+    <!--Результаты расчета-->
+    <div>
+        <label>Себестоимость: </label> <br>
+        <input type="text" id="sebes" value="0"><br>
+        Состав:<br>
+        Коммерческое название:<br>
+        Карты сборки: ?<br>
+    </div>
+
 
     <script>
         // Массив в который собираются результаты
         var result = [];
+        var typeS;
+        var typeC;
 
         //Функция, активизиурющая блок color
-        function activeColor() {
-
-            if (true) {
-                document.getElementById("processor").disabled = false;
-            } else document.getElementById("color").disabled = false;
+        function activateColor() {
+            let sebes = document.getElementById("sebes");
+            switch (typeS) {
+                case 1: //большая станция
+                    document.getElementById("color").disabled = false;
+                    document.getElementById("processor").disabled = true;
+                    result[0] = 100;  //стоимость самого корпуса
+                    sebes.value = result[0];
+                    break;
+                case 2: //маленькая станция
+                    document.getElementById("color").disabled = false;
+                    document.getElementById("processor").disabled = true;
+                    result[0] = 80;
+                    sebes.value = result[0];
+                    break;
+                case 3: //терминал
+                    document.getElementById("color").disabled = true;
+                    document.getElementById("processor").disabled = false;
+                    result[0] = 130;
+                    sebes.value = result[0];
+                    break;
+            }
         };
-
+        //Функция, активизирующая блок safe
+        function activateSafe() {
+            document.getElementById("safe").disabled = false;
+            switch (typeC) {
+                case 1:
+                    result.push(black);
+                    break;
+                case 2:
+                    result.push(green);
+                    break;
+            }
+            console.log(result);
+        }
+        //Работа с блоком Тип рабочей станции
         var typeWorkStation = document.getElementById("typeWorkStation");
-        typeWorkStation.addEventListener("click", activeColor);
+        typeWorkStation.addEventListener("click", activateColor);
+
+        //Работа с блоком Цвет
+        var typeColor = document.getElementById("color");
+        typeColor.addEventListener("click", activateSafe);
+        //Работа с блоком Защитное исполнение
+
+        //Работа с блоком Процессор
+
+        //Работа с блоком Материнская плата
+
+        //Работа с блоком Оперативная память
+
+        //Работа с блоком Видеокарта
+
+        //Работа с блоком Накопители
+
+        //Работа с блоком Вентиляторы
+
+        //Работа с блоком Блок питания
+
     </script>
 </body>
 
