@@ -2,79 +2,71 @@
 <html>
 
 <head>
-    <meta charset="utf-8" name="Author" content="Фокин Е. А.; Виткалов В.О.">
+    <meta charset="utf-8" name="Author" content="CrEn (Фокин Е. А.; Виткалов В.О.)">
     <title>Рабочие станции ООО "Промобит"</title>
 </head>
 
 <body>
     <!--Тип рабочей станции-->
     <div id="typeWorkStation">
-        <form>
-            <fieldset>
+        <fieldset>
+            <form>
                 <h2>Выберите тип рабочей станции</h2>
-                <p><input type="radio" name="station" id="bigStation" onclick="typeS=1" />Большая</p>
-                <p><input type="radio" name="station" id="lowStation" onclick="typeS=2" />Маленькая</p>
-                <p><input type="radio" name="station" id="terminal" onclick="typeS=3" />Терминал</p>
-        </form>
+                <p><input type="radio" name="station" onclick="typeStation='bigStation'" />Большая</p>
+                <p><input type="radio" name="station" onclick="typeStation='lowStation'" />Маленькая</p>
+                <p><input type="radio" name="station" onclick="typeStation='terminal'" />Терминал</p>
+            </form>
         </fieldset>
     </div>
     <!--Цвет-->
     <div>
-        <form>
-            <fieldset id="typecolor" disabled>
+        <fieldset id="typecolor" disabled>
+            <form>
                 <label for="color">Выберите цвет</label>
                 <select id="color">
                     <option value="nothing" name="nothing">-----</option>
                     <option value="black" name="black">Черный</option>
                     <option value="green" name="green">Зеленый</option>
                 </select>
-            </fieldset>
-        </form>
+            </form>
+        </fieldset>
     </div>
-
     <!--Защитное исполнение-->
     <div>
-        <form>
-            <fieldset id="safe" disabled>
+        <fieldset id="protected" disabled>
+            <form>
                 <h2>Нужно защищенное исполнение?</h2>
-                <p>
-                    <input type="radio" onclick="safe" />Да
-                </p>
-                <p>
-                    <input type="radio" onclick="noSafe" />Нет
-                </p>
-            </fieldset>
-        </form>
+                <p><input type="radio" name="protected" onclick="typeProtected='protectedOn'" />Да</p>
+                <p><input type="radio" name="protected" onclick="typeProtected='protectedOff'" />Нет</p>
+            </form>
+        </fieldset>
     </div>
     <!--Процессор-->
-    <form>
-        <fieldset id="processor" disabled>
-            <p>
-                <label for="processor">Выберите процессор:</label>
-                <select id="processor">
-                    <option value="no">-----</option>
-                    <option value="Эльбрус-8СВ">Эльбрус-8СВ</option>
-                    <option value="Intel 1">Intel №1</option>
-                    <option value="Intel 2">Intel №2</option>
-                    <option value="AMD">AMD</option>
-                </select>
-            </p>
-        </fieldset>
-    </form>
+    <fieldset id="processor" disabled>
+        <form>
+            <label for="processor">Выберите процессор:</label>
+            <select id="processor">
+                <option value="nothing">-----</option>
+                <option value="elbrus8SV">Эльбрус-8СВ</option>
+                <option value="baikalM">Baikal-M</option>
+                <option value="intel">Intel Core i5-10600KF</option>
+                <option value="amd">AMD Ryzen 5 3600</option>
+            </select>
+        </form>
+    </fieldset>
+
     <!--Материнская плата-->
     <div id="motherboard">
         <form>
             <fieldset disabled>
-                <p>
-                    <label for="motherboard">Выберите материнскую плату:</label>
-                    <select id="motherboard">
-                        <option value="no">-----</option>
-                        <option value="ЛЯЮИ...">ЛЯЮИ...</option>
-                        <option value="МП1">МП №1</option>
-                        <option value="МП2">МП №2</option>
-                        <option value="МП3">МП №3</option>
-                    </select>
-                </p>
+                <label for="motherboard">Выберите материнскую плату:</label>
+                <select id="motherboard">
+                    <option value="no">-----</option>
+                    <option value="ЛЯЮИ...">ЛЯЮИ...</option>
+                    <option value="МП1">МП №1</option>
+                    <option value="МП2">МП №2</option>
+                    <option value="МП3">МП №3</option>
+                </select>
             </fieldset>
 
         </form>
@@ -211,7 +203,7 @@
         var result = {
             "cost": 0,
             "color": 0,
-            "safe": 0,
+            "protected": 0,
             "proc": 0,
             "motherboard": 0,
             "operation": 0,
@@ -220,26 +212,26 @@
             "cooler": 0,
             "powerStation": 0
         };
-        var typeS;
-        //var typeC;
+        // переменная для онлайн отображения себестоимости
+        var sebes = document.getElementById("sebes");
 
         //Функция, активизиурющая блок color
         function activateColor() {
-            let sebes = document.getElementById("sebes");
-            switch (typeS) {
-                case 1: //большая станция
+
+            switch (typeStation) {
+                case "bigStation":
                     document.getElementById("typecolor").disabled = false;
                     document.getElementById("processor").disabled = true;
                     result.cost = 100;  //стоимость самого корпуса
                     sebes.value = result.cost;
                     break;
-                case 2: //маленькая станция
+                case "lowStation":
                     document.getElementById("typecolor").disabled = false;
                     document.getElementById("processor").disabled = true;
                     result.cost = 80;
                     sebes.value = result.cost;
                     break;
-                case 3: //терминал
+                case "terminal":
                     document.getElementById("typecolor").disabled = true;
                     document.getElementById("processor").disabled = false;
                     result.cost = 130;
@@ -247,19 +239,29 @@
                     break;
             }
         };
-        //Функция, активизирующая блок safe
-        function activateSafe() {
-            const element = document.querySelector("select");
-            //console.log(element.value);
-            element.addEventListener("change", function () {
-                const element = document.querySelector("select");
+        //Функция, активизирующая блок protected
+        function activateProtected() {
+            var element = document.querySelector("select");
+            element.addEventListener("change", function () {    //если изменилось, присваиваем новое значение
                 result.color = element.value;
             })
-            console.log(result);
-            document.getElementById("safe").disabled = false;
+            document.getElementById("protected").disabled = false;
         }
 
-
+        //Функция, активизиурющая блок processor
+        function activateProcessor() {
+            switch (typeProtected) {
+                case "protectedOn":
+                    document.getElementById("processor").disabled = false;
+                    result.protected = "on";
+                    break;
+                case "protectedOff":
+                    document.getElementById("processor").disabled = false;
+                    result.protected = "off";
+                    break;
+            }
+            console.log(result);
+        }
 
         //Работа с блоком Тип рабочей станции
         var typeWorkStation = document.getElementById("typeWorkStation");
@@ -267,11 +269,14 @@
 
         //Работа с блоком Цвет
         var typeColor = document.getElementById("typecolor");
-        typeColor.addEventListener("change", activateSafe);
+        typeColor.addEventListener("click", activateProtected);
 
         //Работа с блоком Защитное исполнение
+        var typeProtected = document.getElementById("protected")
+        typeProtected.addEventListener("click", activateProcessor);
 
         //Работа с блоком Процессор
+
 
         //Работа с блоком Материнская плата
 
