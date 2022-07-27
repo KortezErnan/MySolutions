@@ -12,8 +12,8 @@
         <fieldset>
             <form>
                 <h2>Выберите тип рабочей станции</h2>
-                <p><input type="radio" name="station" onclick="typeStation='bigStation'" />Большая</p>
-                <p><input type="radio" name="station" onclick="typeStation='lowStation'" />Маленькая</p>
+                <p><input type="radio" name="station" onclick="typeStation='bigStation'" />Большая </p>
+                <p><input type="radio" name="station" onclick="typeStation='lowStation'" />Маленькая </p>
                 <p><input type="radio" name="station" onclick="typeStation='terminal'" />Терминал</p>
             </form>
         </fieldset>
@@ -42,23 +42,55 @@
         </fieldset>
     </div>
     <!--Процессор-->
-    <fieldset id="processor" disabled>
-        <form>
-            <label for="processor">Выберите процессор:</label>
-            <select id="processor">
-                <option value="nothing">-----</option>
-                <option value="elbrus8SV">Эльбрус-8СВ</option>
-                <option value="baikalM">Baikal-M</option>
-                <option value="intel">Intel Core i5-10600KF</option>
-                <option value="amd">AMD Ryzen 5 3600</option>
-            </select>
-        </form>
-    </fieldset>
+    <div>
+        <fieldset id="processor" disabled>
+            <form>
+                <h2>Выберите производителя процессора:</h2>
+                <input type="radio" name="processor" onclick="typeProcessor='procElbrus'" />Эльбрус
+                <input type="radio" name="processor" onclick="typeProcessor='procBaikal'" />Байкал
+                <input type="radio" name="processor" onclick="typeProcessor='procIntel'" />Intel
+                <input type="radio" name="processor" onclick="typeProcessor='procAmd'" />AMD
+                <input type="radio" name="processor" onclick="typeProcessor='procNothing'" />Процессор не нужен<br>
+
+                <h3>Выберите процессор:</h3>
+                <select id="elbrus" disabled>
+                    <option value="nothing">-----</option>
+                    <option value="elbrus4">Эльбрус-4С</option>
+                    <option value="elbrus8">Эльбрус-8С</option>
+                    <option value="elbrus8sv">Эльбрус-8СВ</option>
+                    <option value="elbrus16">Эльбрус-16С</option>
+                </select>
+                <select id="baikal" disabled>
+                    <option value="nothing">-----</option>
+                    <option value="baikalM">Baikal-M</option>
+                </select>
+                <select id="intel" disabled>
+                    <option value="nothing">-----</option>
+                    <option value="intel core i5 11400">Intel core i5 11400</option>
+                    <option value="intel core i5 11400f">Intel core i5 11400F</option>
+                    <option value="intel core i5 11500">Intel core i5 11500</option>
+                    <option value="intel core i5 11600">Intel core i5 11600</option>
+                    <option value="intel core i3 10100f">Intel core i3 10100F</option>
+                    <option value="intel core i3 10105f">Intel core i3 10105F</option>
+                    <option value="intel core i3 10100">Intel core i3 10100</option>
+                    <option value="intel core i3 12100f">Intel core i3 12100F</option>
+                </select>
+                <select id="amd" disabled>
+                    <option value="nothing">-----</option>
+                    <option value="amd ryzen 5 5600g">AMD ryzen 5 5600G</option>
+                    <option value="amd ryzen 5 pro 5650g">AMD ryzen 5 PRO 5650G</option>
+                    <option value="amd ryzen 5 pro 4650g">AMD ryzen 5 PRO 46550G</option>
+                    <option value="amd ryzen 5 5600x">AMD ryzen 5 5600X</option>
+                </select>
+            </form>
+        </fieldset>
+
+    </div>
 
     <!--Материнская плата-->
-    <div id="motherboard">
+    <div>
         <form>
-            <fieldset disabled>
+            <fieldset id="motherboard" disabled>
                 <label for="motherboard">Выберите материнскую плату:</label>
                 <select id="motherboard">
                     <option value="no">-----</option>
@@ -115,9 +147,9 @@
         </form>
     </div>
     <!--Накопители-->
-    <div id="hardDisc">
+    <div>
         <form>
-            <fieldset disabled>
+            <fieldset id="hardDisc" disabled>
                 <p>
                     <label for="hdd">Выберите жесткий диск:</label>
                     <select id="hdd">
@@ -162,9 +194,9 @@
         </form>
     </div>
     <!--Блок питания-->
-    <div id="powerStation">
+    <div>
         <form>
-            <fieldset disabled>
+            <fieldset id="powerStation" disabled>
                 <p>
                     <label for="powerStation">Выберите блок питания:</label>
                     <select id="powerStation">
@@ -204,6 +236,7 @@
             "cost": 0,
             "color": 0,
             "protected": 0,
+            "power": 0,
             "proc": 0,
             "motherboard": 0,
             "operation": 0,
@@ -215,9 +248,8 @@
         // переменная для онлайн отображения себестоимости
         var sebes = document.getElementById("sebes");
 
-        //Функция, активизиурющая блок color
+        //Выбор типа станции, активация блока color
         function activateColor() {
-
             switch (typeStation) {
                 case "bigStation":
                     document.getElementById("typecolor").disabled = false;
@@ -233,13 +265,14 @@
                     break;
                 case "terminal":
                     document.getElementById("typecolor").disabled = true;
+                    document.getElementById("protected").disabled = true;
                     document.getElementById("processor").disabled = false;
                     result.cost = 130;
                     sebes.value = result.cost;
                     break;
             }
         };
-        //Функция, активизирующая блок protected
+        //Выбор цвета и активация блока protected
         function activateProtected() {
             var element = document.querySelector("select");
             element.addEventListener("change", function () {    //если изменилось, присваиваем новое значение
@@ -247,8 +280,7 @@
             })
             document.getElementById("protected").disabled = false;
         }
-
-        //Функция, активизиурющая блок processor
+        //ВЫбор защищенного исполнения, активизиурющая блок processor
         function activateProcessor() {
             switch (typeProtected) {
                 case "protectedOn":
@@ -260,7 +292,44 @@
                     result.protected = "off";
                     break;
             }
-            console.log(result);
+        }
+
+        //Выбор процессора и активация блока motherboard
+        function activateMotherboard() {
+            if (typeStation == "terminal" && typeProcessor == "procNothing") {
+                document.getElementById("powerStation").disabled = false;
+                return;
+            }
+            switch (typeProcessor) {
+                case "procElbrus":
+                    document.getElementById("elbrus").disabled = false;
+                    document.getElementById("baikal").disabled = true;
+                    document.getElementById("intel").disabled = true;
+                    document.getElementById("amd").disabled = true;
+                    break;
+                case "procBaikal":
+                    document.getElementById("elbrus").disabled = true;
+                    document.getElementById("baikal").disabled = false;
+                    document.getElementById("intel").disabled = true;
+                    document.getElementById("amd").disabled = true;
+                    break;
+                case "procIntel":
+                    document.getElementById("elbrus").disabled = true;
+                    document.getElementById("baikal").disabled = true;
+                    document.getElementById("intel").disabled = false;
+                    document.getElementById("amd").disabled = true;;
+                    break;
+                case "procAmd":
+                    document.getElementById("elbrus").disabled = true;
+                    document.getElementById("baikal").disabled = true;
+                    document.getElementById("intel").disabled = true;
+                    document.getElementById("amd").disabled = false;
+                    break;
+                case "procNothing":
+                    document.getElementById("powerStation").disabled = true;
+                    document.getElementById("hardDisc").disabled = false;
+                    break;
+            }
         }
 
         //Работа с блоком Тип рабочей станции
@@ -276,7 +345,8 @@
         typeProtected.addEventListener("click", activateProcessor);
 
         //Работа с блоком Процессор
-
+        var typeProcessor = document.getElementById("processor")
+        typeProcessor.addEventListener("click", activateMotherboard);
 
         //Работа с блоком Материнская плата
 
