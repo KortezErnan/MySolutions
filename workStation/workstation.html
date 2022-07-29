@@ -8,13 +8,13 @@
 
 <body>
     <!--Тип рабочей станции-->
-    <div id="typeWorkStation">
+    <div>
         <fieldset>
-            <form>
+            <form name="typeWorkStation">
                 <h2>Выберите тип рабочей станции</h2>
-                <input type="radio" name="station" onclick="typeStation='bigStation'" />Большая
-                <input type="radio" name="station" onclick="typeStation='lowStation'" />Маленькая
-                <input type="radio" name="station" onclick="typeStation='terminal'" />Терминал
+                <input type="radio" name="station" value="bigStation" />Большая
+                <input type="radio" name="station" value="lowStation" />Маленькая
+                <input type="radio" name="station" value="terminal" />Терминал
             </form>
         </fieldset>
     </div>
@@ -33,13 +33,13 @@
     </div>
     <!--Защитное исполнение-->
     <div>
-        <fieldset id="protected">
-            <form>
+        <fieldset>
+            <form name="protected">
                 <h2>Нужно защищенное исполнение?</h2>
-                <input type="radio" name="protected" onclick="typeProtected='protectedOn'" />Да
-                <input type="radio" name="protected" onclick="typeProtected='protectedOff'" />Нет <br>
-                <input type="radio" name="protected1" onclick="typeProtected='protectedOn'" />Только крышка
-                <input type="radio" name="protected1" onclick="typeProtected='protectedOff'" />Крышка + iButton
+                <input type="radio" name="protect1" value="yes" />Да
+                <input type="radio" name="protect1" value="no" />Нет <br>
+                <input type="radio" name="protect2" />Только крышка
+                <input type="radio" name="protect2" />Крышка + iButton
 
             </form>
         </fieldset>
@@ -325,9 +325,18 @@
 
 
             //Функции
+            // Функция, определяющая выбранный параметр
+            function onclick(formName, inputName, specFunc) {
+                let element = document.getElementsByName(formName);
+                for (var i = 0; i < element.length; i++) {
+                    element[i].addEventListener("click", specFunc)
+                }
+            };
+
             //Выбор типа станции, активация блока color
-            function activateColor() {
-                switch (typeStation) {
+            function activateColor(e) {
+                var station = e.target.value;   //получаем значение value выбранного элемента
+                switch (station) {
                     case "bigStation":
                         //document.getElementById("typecolor").disabled = false;
                         //document.getElementById("processor").disabled = true;
@@ -349,6 +358,7 @@
                         break;
                 }
             };
+
             //Выбор цвета и активация блока protected
             function activateProtected() {
                 var element = document.querySelector("select");
@@ -358,13 +368,15 @@
                 //document.getElementById("protected").disabled = false;
             }
             //ВЫбор защищенного исполнения, активизиурющая блок processor
-            function activateProcessor() {
-                switch (typeProtected) {
-                    case "protectedOn":
+            function activateProcessor(e) {
+                var protect = e.target.value;
+                console.log(protect);
+                switch (protect) {
+                    case "yes":
                         //document.getElementById("processor").disabled = false;
                         result.protected = "on";
                         break;
-                    case "protectedOff":
+                    case "no":
                         //document.getElementById("processor").disabled = false;
                         result.protected = "off";
                         break;
@@ -409,19 +421,15 @@
             }
 
 
-
-
             //Работа с блоком Тип рабочей станции
-            var typeWorkStation = document.getElementById("typeWorkStation");
-            typeWorkStation.addEventListener("click", activateColor);
+            onclick("typeWorkStation", "station", activateColor);
 
             //Работа с блоком Цвет
             var typeColor = document.getElementById("typecolor");
             typeColor.addEventListener("click", activateProtected);
 
             //Работа с блоком Защитное исполнение
-            var typeProtected = document.getElementById("protected")
-            typeProtected.addEventListener("click", activateProcessor);
+            onclick("protected", "protect1", activateProcessor);
 
             //Работа с блоком Процессор
             var typeProcessor = document.getElementById("processor")
