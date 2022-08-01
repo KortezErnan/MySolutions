@@ -9,83 +9,74 @@
 <body>
     <!--Тип рабочей станции-->
     <div>
-        <fieldset>
-            <form name="typeWorkStation">
-                <h2>Выберите тип рабочей станции</h2>
-                <input type="radio" name="station" value="bigStation" />Большая
-                <input type="radio" name="station" value="lowStation" />Маленькая
-                <input type="radio" name="station" value="terminal" />Терминал
-            </form>
-        </fieldset>
+        <form name="typeWorkStation">
+            <h2>Выберите тип рабочей станции</h2>
+            <input type="radio" name="station" value="bigStation" />Большая
+            <input type="radio" name="station" value="lowStation" />Маленькая
+            <input type="radio" name="station" value="terminal" />Терминал
+        </form>
     </div>
     <!--Цвет-->
     <div>
-        <fieldset id="typecolor">
-            <form>
-                <label for="color">Выберите цвет</label>
-                <select id="color">
-                    <option value="nothing" name="nothing">-----</option>
-                    <option value="black" name="black">Черный</option>
-                    <option value="green" name="green">Зеленый</option>
-                </select>
-            </form>
-        </fieldset>
+        <form name="typecolor">
+            <h2>Выберите цвет рабочей станции</h2>
+            <label for="color">Выберите цвет</label>
+            <select id="color">
+                <option value="nothing">-----</option>
+                <option value="black">Черный</option>
+                <option value="green">Зеленый</option>
+            </select>
+        </form>
     </div>
     <!--Защитное исполнение-->
     <div>
-        <fieldset>
-            <form name="protected">
-                <h2>Нужно защищенное исполнение?</h2>
-                <input type="radio" name="protect1" value="yes" />Да
-                <input type="radio" name="protect1" value="no" />Нет <br>
-                <input type="radio" name="protect2" />Только крышка
-                <input type="radio" name="protect2" />Крышка + iButton
-
-            </form>
-        </fieldset>
+        <form name="protected">
+            <h2>Нужно защищенное исполнение?</h2>
+            <input type="radio" name="protect1" value="yes" />Да
+            <input type="radio" name="protect1" value="no" />Нет <br>
+            <input type="radio" name="protect2" value="cap" />Только крышка
+            <input type="radio" name="protect2" value="cap+button" />Крышка + iButton
+        </form>
     </div>
     <!--Процессор-->
     <div>
-        <fieldset id="processor">
-            <form>
-                <h2>Выберите производителя процессора:</h2>
-                <input type="radio" name="processor" onclick="typeProcessor='procElbrus'" />Эльбрус
-                <input type="radio" name="processor" onclick="typeProcessor='procBaikal'" />Байкал
-                <input type="radio" name="processor" onclick="typeProcessor='procIntel'" />Intel
-                <input type="radio" name="processor" onclick="typeProcessor='procAmd'" />AMD
-                <input type="radio" name="processor" onclick="typeProcessor='procNothing'" />Процессор не нужен<br>
+        <form name processor>
+            <h2>Выберите производителя процессора:</h2>
+            <input type="radio" name="processor" value="procElbrus" />Эльбрус
+            <input type="radio" name="processor" value="procBaikal" />Байкал
+            <input type="radio" name="processor" value="procIntel" />Intel
+            <input type="radio" name="processor" value="procAmd" />AMD
+            <input type="radio" name="processor" value="procNothing" />Процессор не нужен<br>
 
-                <h3>Выберите процессор:</h3>
-                <select id="elbrus">
-                    <option value="nothing">-----</option>
-                    <option value="elbrus8">Эльбрус-8С</option>
-                    <option value="elbrus8sv">Эльбрус-8СВ</option>
-                </select>
-                <select id="baikal">
-                    <option value="nothing">-----</option>
-                    <option value="baikalM">Baikal-M</option>
-                </select>
-                <select id="intel">
-                    <option value="nothing">-----</option>
-                    <option value="intel core i5 11400">Intel core i5 11400</option>
-                    <option value="intel core i5 11400f">Intel core i5 11400F</option>
-                    <option value="intel core i5 11500">Intel core i5 11500</option>
-                    <option value="intel core i5 11600">Intel core i5 11600</option>
-                    <option value="intel core i3 10100f">Intel core i3 10100F</option>
-                    <option value="intel core i3 10105f">Intel core i3 10105F</option>
-                    <option value="intel core i3 10100">Intel core i3 10100</option>
-                    <option value="intel core i3 12100f">Intel core i3 12100F</option>
-                </select>
-                <select id="amd">
-                    <option value="nothing">-----</option>
-                    <option value="amd ryzen 5 5600g">AMD ryzen 5 5600G</option>
-                    <option value="amd ryzen 5 pro 5650g">AMD ryzen 5 PRO 5650G</option>
-                    <option value="amd ryzen 5 pro 4650g">AMD ryzen 5 PRO 4650G</option>
-                    <option value="amd ryzen 5 5600x">AMD ryzen 5 5600X</option>
-                </select>
-            </form>
-        </fieldset>
-
+            <h3>Выберите процессор:</h3>
+            <select id="elbrus">
+                <option value="nothing">-----</option>
+                <option value="elbrus8s">Эльбрус-8С</option>
+                <option value="elbrus8sv">Эльбрус-8СВ</option>
+            </select>
+            <select id="baikal">
+                <option value="nothing">-----</option>
+                <option value="baikalM">Baikal-M</option>
+            </select>
+            <select id="intel">
+                <option value="nothing">-----</option>
+                <option value="intel core i5 11400">Intel core i5 11400</option>
+                <option value="intel core i5 11400f">Intel core i5 11400F</option>
+                <option value="intel core i5 11500">Intel core i5 11500</option>
+                <option value="intel core i5 11600">Intel core i5 11600</option>
+                <option value="intel core i3 10100f">Intel core i3 10100F</option>
+                <option value="intel core i3 10105f">Intel core i3 10105F</option>
+                <option value="intel core i3 10100">Intel core i3 10100</option>
+                <option value="intel core i3 12100f">Intel core i3 12100F</option>
+            </select>
+            <select id="amd">
+                <option value="nothing">-----</option>
+                <option value="amd ryzen 5 5600g">AMD ryzen 5 5600G</option>
+                <option value="amd ryzen 5 pro 5650g">AMD ryzen 5 PRO 5650G</option>
+                <option value="amd ryzen 5 pro 4650g">AMD ryzen 5 PRO 4650G</option>
+                <option value="amd ryzen 5 5600x">AMD ryzen 5 5600X</option>
+            </select>
+        </form>
     </div>
 
     <!--Материнская плата-->
@@ -291,21 +282,22 @@
                     this.socket = socket;
                 }
             }
-            var elbrus8 = new Processor("elbrus-8c", 0, 80, "solder8s");  //цена учтена в стоимости платы
-            var elbrus8sv = new Processor("elbrus-8sv", 0, 110, "solder8sv");  //цена учтена в стоимости платы
-            var baikalM = new Processor("baikalM", 29500, 30, "solderB");
-            var i511400 = new Processor("i5 11400", 13800, 65, "LGA 1200");
-            var i511400f = new Processor("i5 11400F", 13800, 65, "LGA 1200");
-            var i511500 = new Processor("i5 11500", 16500, 65, "LGA 1200");
-            var i511600 = new Processor("i5 11600", 19000, 65, "LGA 1200");
-            var i310100f = new Processor("i3 10100F", 7100, 65, "LGA 1200");
-            var i310105f = new Processor("i3 10105F", 7600, 65, "LGA 1200");
-            var i310100 = new Processor("i3 10100", 8400, 65, "LGA 1200");
-            var i312100f = new Processor("i3 12100F", 10000, 89, "LGA 1700");
-            var ryzen5600g = new Processor("ryzen 5 5600G", 16300, 65, "AM4");
-            var ryzen5650g = new Processor("ryzen 5 pro 5650G", 19000, 65, "AM4");
-            var ryzen4650g = new Processor("ryzen 5 pro 4650G", 15500, 65, "AM4");
-            var ryzen5600x = new Processor("ryzen 5 pro 5600X", 17900, 65, "AM4");
+            var processorsModels = [];
+            processorsModels[0] = new Processor("elbrus8s", 99, 80, "solder8s");  //цена учтена в стоимости платы
+            processorsModels[1] = new Processor("elbrus8sv", 99, 110, "solder8sv");  //цена учтена в стоимости платы
+            processorsModels[2] = new Processor("baikalM", 29500, 30, "solderB");
+            processorsModels[3] = new Processor("i5 11400", 13800, 65, "LGA 1200");
+            processorsModels[4] = new Processor("i5 11400F", 13800, 65, "LGA 1200");
+            processorsModels[5] = new Processor("i5 11500", 16500, 65, "LGA 1200");
+            processorsModels[6] = new Processor("i5 11600", 19000, 65, "LGA 1200");
+            processorsModels[7] = new Processor("i3 10100F", 7100, 65, "LGA 1200");
+            processorsModels[8] = new Processor("i3 10105F", 7600, 65, "LGA 1200");
+            processorsModels[9] = new Processor("i3 10100", 8400, 65, "LGA 1200");
+            processorsModels[10] = new Processor("i3 12100F", 10000, 89, "LGA 1700");
+            processorsModels[11] = new Processor("ryzen 5 5600G", 16300, 65, "AM4");
+            processorsModels[12] = new Processor("ryzen 5 pro 5650G", 19000, 65, "AM4");
+            processorsModels[13] = new Processor("ryzen 5 pro 4650G", 15500, 65, "AM4");
+            processorsModels[14] = new Processor("ryzen 5 pro 5600X", 17900, 65, "AM4");
 
             class Motherboard {
                 constructor(name, cost, power, socket, numberOP, typeOP, volumeOP) {
@@ -326,114 +318,121 @@
 
             //Функции
             // Функция, определяющая выбранный параметр
-            function onclick(formName, inputName, specFunc) {
+            function onclick(formName, specFunc) {
                 let element = document.getElementsByName(formName);
                 for (var i = 0; i < element.length; i++) {
                     element[i].addEventListener("click", specFunc)
                 }
             };
 
+
             //Выбор типа станции, активация блока color
             function activateColor(e) {
                 var station = e.target.value;   //получаем значение value выбранного элемента
                 switch (station) {
                     case "bigStation":
-                        //document.getElementById("typecolor").disabled = false;
-                        //document.getElementById("processor").disabled = true;
                         result.cost = 100;  //стоимость самого корпуса
                         sebes.value = result.cost;
+                        console.log(result);
                         break;
                     case "lowStation":
-                        //document.getElementById("typecolor").disabled = false;
-                        //document.getElementById("processor").disabled = true;
                         result.cost = 80;
                         sebes.value = result.cost;
+                        console.log(result);
                         break;
                     case "terminal":
-                        //document.getElementById("typecolor").disabled = true;
-                        //document.getElementById("protected").disabled = true;
-                        //document.getElementById("processor").disabled = false;
                         result.cost = 130;
                         sebes.value = result.cost;
+                        console.log(result);
                         break;
                 }
             };
-
             //Выбор цвета и активация блока protected
-            function activateProtected() {
-                var element = document.querySelector("select");
-                element.addEventListener("change", function () {    //если изменилось, присваиваем новое значение
-                    result.color = element.value;
-                })
-                //document.getElementById("protected").disabled = false;
+            function activateProtected(e) {
+                var color = e.target.value;   //получаем значение value выбранного элемента
+                switch (color) {
+                    case "black":
+                        result.color = "black";
+                        console.log(result);
+                        break;
+                    case "green":
+                        result.color = "green";
+                        console.log(result);
+                        break;
+                }
             }
-            //ВЫбор защищенного исполнения, активизиурющая блок processor
+            //Выбор защищенного исполнения, активизиурющая блок processor
             function activateProcessor(e) {
                 var protect = e.target.value;
-                console.log(protect);
                 switch (protect) {
                     case "yes":
-                        //document.getElementById("processor").disabled = false;
-                        result.protected = "on";
+                        let element = document.getElementsByName("protect2");
+                        for (var i = 0; i < element.length; i++) {
+                            element[i].addEventListener("click", function (e) {
+                                result.protected = e.target.value;
+                                console.log(result);
+                            })
+                        }
                         break;
                     case "no":
-                        //document.getElementById("processor").disabled = false;
                         result.protected = "off";
+                        console.log(result);
                         break;
                 }
             }
             //Выбор процессора и активация блока motherboard
-            function activateMotherboard() {
-                if (typeStation == "terminal" && typeProcessor == "procNothing") {
-                    //document.getElementById("resume").disabled = false;
-                    return;
-                }
+            function activateMotherboard(e) {
+                var typeProcessor = e.target.value; //выбираем производителя процессоров
+                var modelProcessor = document.getElementsByTagName("select");   //выбираем конкретную модель
+                var temporaryCost = 0;  //стоимость процессора
+                console.log(typeProcessor, temporaryCost);
+
                 switch (typeProcessor) {
                     case "procElbrus":
-                        //document.getElementById("elbrus").disabled = false;
-                        //document.getElementById("baikal").disabled = true;
-                        //document.getElementById("intel").disabled = true;
-                        //document.getElementById("amd").disabled = true;
+                        for (var i = 0; i < modelProcessor.length; i++) {
+                            modelProcessor[i].addEventListener("click", function (e) {
+                                var elementProc = e.target.value;
+                                console.log(elementProc);
+                                for (var j = 0; j < processorsModels.length; j++) {
+                                    if (elementProc == processorsModels[j].name) {
+                                        temporaryCost = processorsModels[j].cost;
+                                        console.log(temporaryCost);
+                                        continue;
+                                    };
+                                };
+                            });
+                        };
+                        result.cost = result.cost + temporaryCost;
+                        console.log(result);
                         break;
                     case "procBaikal":
-                        //document.getElementById("elbrus").disabled = true;
-                        //document.getElementById("baikal").disabled = false;
-                        //document.getElementById("intel").disabled = true;
-                        //document.getElementById("amd").disabled = true;
+                        console.log(1);
                         break;
                     case "procIntel":
-                        //document.getElementById("elbrus").disabled = true;
-                        //document.getElementById("baikal").disabled = true;
-                        //document.getElementById("intel").disabled = false;
-                        //document.getElementById("amd").disabled = true;;
+                        console.log(2);
                         break;
                     case "procAmd":
-                        //document.getElementById("elbrus").disabled = true;
-                        //document.getElementById("baikal").disabled = true;
-                        //document.getElementById("intel").disabled = true;
-                        //document.getElementById("amd").disabled = false;
+                        console.log(3);
                         break;
                     case "procNothing":
-                        //document.getElementById("powerStation").disabled = true;
-                        //document.getElementById("hardDisc").disabled = false;
+                        console.log(4);
                         break;
                 }
             }
 
 
             //Работа с блоком Тип рабочей станции
-            onclick("typeWorkStation", "station", activateColor);
+            onclick("typeWorkStation", activateColor);
 
             //Работа с блоком Цвет
-            var typeColor = document.getElementById("typecolor");
-            typeColor.addEventListener("click", activateProtected);
+            onclick("typecolor", activateProtected);
 
             //Работа с блоком Защитное исполнение
-            onclick("protected", "protect1", activateProcessor);
+            onclick("protected", activateProcessor);
 
             //Работа с блоком Процессор
-            var typeProcessor = document.getElementById("processor")
-            typeProcessor.addEventListener("click", activateMotherboard);
+            onclick("processor", activateMotherboard);
+
 
         //Работа с блоком Материнская плата
 
