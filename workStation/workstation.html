@@ -49,32 +49,32 @@
             <input type="radio" name="processor" value="procNothing" />Процессор не нужен<br>
 
             <h3>Выберите процессор:</h3>
-            <select id="elbrus">
+            <select id="elbrus" disabled>
                 <option value="nothing">-----</option>
                 <option value="elbrus8s">Эльбрус-8С</option>
                 <option value="elbrus8sv">Эльбрус-8СВ</option>
             </select>
-            <select id="baikal">
+            <select id="baikal" disabled>
                 <option value="nothing">-----</option>
                 <option value="baikalM">Baikal-M</option>
             </select>
-            <select id="intel">
+            <select id="intel" disabled>
                 <option value="nothing">-----</option>
-                <option value="intel core i5 11400">Intel core i5 11400</option>
-                <option value="intel core i5 11400f">Intel core i5 11400F</option>
-                <option value="intel core i5 11500">Intel core i5 11500</option>
-                <option value="intel core i5 11600">Intel core i5 11600</option>
-                <option value="intel core i3 10100f">Intel core i3 10100F</option>
-                <option value="intel core i3 10105f">Intel core i3 10105F</option>
-                <option value="intel core i3 10100">Intel core i3 10100</option>
-                <option value="intel core i3 12100f">Intel core i3 12100F</option>
+                <option value="i5 11400">Intel core i5 11400</option>
+                <option value="i5 11400F">Intel core i5 11400F</option>
+                <option value="i5 11500">Intel core i5 11500</option>
+                <option value="i5 11600">Intel core i5 11600</option>
+                <option value="i3 10100F">Intel core i3 10100F</option>
+                <option value="i3 10105F">Intel core i3 10105F</option>
+                <option value="i3 10100">Intel core i3 10100</option>
+                <option value="i3 12100F">Intel core i3 12100F</option>
             </select>
-            <select id="amd">
+            <select id="amd" disabled>
                 <option value="nothing">-----</option>
-                <option value="amd ryzen 5 5600g">AMD ryzen 5 5600G</option>
-                <option value="amd ryzen 5 pro 5650g">AMD ryzen 5 PRO 5650G</option>
-                <option value="amd ryzen 5 pro 4650g">AMD ryzen 5 PRO 4650G</option>
-                <option value="amd ryzen 5 5600x">AMD ryzen 5 5600X</option>
+                <option value="ryzen 5 5600G">AMD ryzen 5 5600G</option>
+                <option value="ryzen 5 pro 5650G">AMD ryzen 5 PRO 5650G</option>
+                <option value="ryzen 5 pro 4650G">AMD ryzen 5 PRO 4650G</option>
+                <option value="ryzen 5 pro 5600X">AMD ryzen 5 5600X</option>
             </select>
         </form>
     </div>
@@ -282,8 +282,9 @@
                     this.socket = socket;
                 }
             }
+            //Массив, хранящий модели процессоров
             var processorsModels = [];
-            processorsModels[0] = new Processor("elbrus8s", 99, 80, "solder8s");  //цена учтена в стоимости платы
+            processorsModels[0] = new Processor("elbrus8s", 98, 80, "solder8s");  //цена учтена в стоимости платы
             processorsModels[1] = new Processor("elbrus8sv", 99, 110, "solder8sv");  //цена учтена в стоимости платы
             processorsModels[2] = new Processor("baikalM", 29500, 30, "solderB");
             processorsModels[3] = new Processor("i5 11400", 13800, 65, "LGA 1200");
@@ -383,41 +384,65 @@
             //Выбор процессора и активация блока motherboard
             function activateMotherboard(e) {
                 var typeProcessor = e.target.value; //выбираем производителя процессоров
-                var modelProcessor = document.getElementsByTagName("select");   //выбираем конкретную модель
-                var temporaryCost = 0;  //стоимость процессора
-                console.log(typeProcessor, temporaryCost);
+                var modelProcessor = document.getElementsByTagName("select");   //выбираем все списки в документе
+                var listElbrus = document.getElementById("elbrus"); //переменная для списка Эльбрусов
+                var listBaikal = document.getElementById("baikal"); //переменная для списка Байкалов
+                var listIntel = document.getElementById("intel"); //переменная для списка Интелов
+                var listAmd = document.getElementById("amd"); //переменная для списка АМД
+                var costProcessor = 0;  //стоимость процессора
+                var selectedProcessor;  //переменная для определения конкретной модели процессора
 
+                //цикл, определяющий выбранную модель процессора 
+                function selectProcessor() {
+                    for (var i = 0; i < modelProcessor.length; i++) {
+                        modelProcessor[i].addEventListener("click", function (e) {
+                            var selectedProcessor = e.target.value;
+                            for (var j = 0; j < processorsModels.length; j++)
+                                if (selectedProcessor == processorsModels[j].name)
+                                    costProcessor = processorsModels[j].cost;
+                            //продумать вариант с обнулением
+                            result.cost += costProcessor;
+                            sebes.value = result.cost;
+
+                        })
+                    }
+                }
+                //функция, отключающая ненужные поля
+                function disabledFields() {
+                    listElbrus.disabled = true;
+                    listBaikal.disabled = true;
+                    listIntel.disabled = true;
+                    listAmd.disabled = true;
+                }
+                //selectProcessor();
+                selectProcessor();
+                console.log(costProcessor);
                 switch (typeProcessor) {
                     case "procElbrus":
-                        for (var i = 0; i < modelProcessor.length; i++) {
-                            modelProcessor[i].addEventListener("click", function (e) {
-                                var elementProc = e.target.value;
-                                console.log(elementProc);
-                                for (var j = 0; j < processorsModels.length; j++) {
-                                    if (elementProc == processorsModels[j].name) {
-                                        temporaryCost = processorsModels[j].cost;
-                                        console.log(temporaryCost);
-                                        continue;
-                                    };
-                                };
-                            });
-                        };
-                        result.cost = result.cost + temporaryCost;
+                        disabledFields();
+                        listElbrus.disabled = false;
                         console.log(result);
                         break;
                     case "procBaikal":
+                        disabledFields();
+                        listBaikal.disabled = false;
                         console.log(1);
                         break;
                     case "procIntel":
+                        disabledFields();
+                        listIntel.disabled = false;
                         console.log(2);
                         break;
                     case "procAmd":
+                        disabledFields();
+                        listAmd.disabled = false;
                         console.log(3);
                         break;
                     case "procNothing":
                         console.log(4);
                         break;
                 }
+
             }
 
 
